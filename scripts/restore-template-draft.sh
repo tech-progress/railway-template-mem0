@@ -30,8 +30,13 @@ variables="$(
       reduce ($config.services | to_entries[]) as $service (
         $config;
         if $desired[$service.value.name].source.type == "image" then
-          .services[$service.key].source.image = $desired[$service.value.name].source.image
+          .services[$service.key].source.image = $desired[$service.value.name].source.image |
+          del(.services[$service.key].source.repo) |
+          del(.services[$service.key].source.branch) |
+          del(.services[$service.key].source.rootDirectory) |
+          del(.services[$service.key].build)
         else
+          del(.services[$service.key].source.image) |
           .services[$service.key].source.repo = $desired[$service.value.name].source.repo |
           .services[$service.key].source.branch = $desired[$service.value.name].source.branch |
           .services[$service.key].source.rootDirectory = $desired[$service.value.name].source.rootDirectory |

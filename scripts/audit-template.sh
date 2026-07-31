@@ -38,7 +38,13 @@ for service_name in "Mem0 API" "Mem0 Dashboard" "Mem0 PostgreSQL"; do
   if [[ "$(jq -r '.source.type' <<<"${desired}")" == "image" ]]; then
     [[ "$(jq -r '.source.image' <<<"${actual}")" == "$(jq -r '.source.image' <<<"${desired}")" ]] \
       || failures=$((failures + 1))
+    [[ "$(jq -r '.source.repo // ""' <<<"${actual}")" == "" ]] \
+      || failures=$((failures + 1))
+    [[ "$(jq -r '.build == null' <<<"${actual}")" == "true" ]] \
+      || failures=$((failures + 1))
   else
+    [[ "$(jq -r '.source.image // ""' <<<"${actual}")" == "" ]] \
+      || failures=$((failures + 1))
     expected_repo="$(jq -r '.source.repo' <<<"${desired}")"
     actual_repo="$(jq -r '.source.repo | sub("^https://github.com/"; "") | sub("\\.git$"; "")' <<<"${actual}")"
     [[ "${actual_repo}" == "${expected_repo}" ]] || failures=$((failures + 1))
