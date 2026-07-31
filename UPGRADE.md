@@ -1,0 +1,7 @@
+# Upgrading Mem0 self-hosted
+
+Back up both the PostgreSQL and Mem0 History volumes before changing the pinned upstream commit. The two stores are one logical dataset: PostgreSQL holds vectors and application records, while `/app/history/history.db` holds memory history.
+
+Review upstream server migrations, authentication notes, dashboard environment changes, and the Mem0 Python package release together. Update the commit and archive checksum in both Dockerfiles, keep the `mem0ai` constraint aligned with that release, rebuild both images without cache, and run the empty-volume and initialized-volume smoke tests.
+
+Deploy the candidate into a disposable Railway project before moving the published template. Confirm migrations, dashboard login, a real provider-backed memory write/search/delete cycle, current replica health, and volume attachments. Roll back the source release only when the target schema is compatible; otherwise restore both volume backups as a pair.

@@ -1,0 +1,35 @@
+{
+  "Mem0 PostgreSQL": {
+    "PGDATA": "/var/lib/postgresql/data/pgdata",
+    "POSTGRES_DB": "postgres",
+    "POSTGRES_PASSWORD": "${{secret(48)}}",
+    "POSTGRES_USER": "mem0"
+  },
+  "Mem0 API": {
+    "ADMIN_API_KEY": "${{secret(32)}}",
+    "APP_DB_NAME": "mem0_app",
+    "AUTH_DISABLED": "false",
+    "DASHBOARD_URL": "https://${{Mem0 Dashboard.RAILWAY_PUBLIC_DOMAIN}}",
+    "HISTORY_DB_PATH": "/app/history/history.db",
+    "JWT_SECRET": "${{secret(64)}}",
+    "MEM0_DEFAULT_EMBEDDER_MODEL": "text-embedding-3-small",
+    "MEM0_DEFAULT_LLM_MODEL": "gpt-4.1-nano-2025-04-14",
+    "MEM0_TELEMETRY": "false",
+    "OPENAI_API_KEY": "",
+    "OPENAI_BASE_URL": "",
+    "PORT": "8000",
+    "POSTGRES_COLLECTION_NAME": "memories",
+    "POSTGRES_DB": "${{Mem0 PostgreSQL.POSTGRES_DB}}",
+    "POSTGRES_HOST": "${{Mem0 PostgreSQL.RAILWAY_PRIVATE_DOMAIN}}",
+    "POSTGRES_PASSWORD": "${{Mem0 PostgreSQL.POSTGRES_PASSWORD}}",
+    "POSTGRES_PORT": "5432",
+    "POSTGRES_USER": "${{Mem0 PostgreSQL.POSTGRES_USER}}",
+    "REQUEST_LOG_RETENTION_DAYS": "30"
+  },
+  "Mem0 Dashboard": {
+    "API_INTERNAL_URL": "http://${{Mem0 API.RAILWAY_PRIVATE_DOMAIN}}:8000",
+    "NEXT_PUBLIC_API_URL": "https://${{Mem0 API.RAILWAY_PUBLIC_DOMAIN}}",
+    "NEXT_PUBLIC_INSTANCE_NAME": "Mem0",
+    "PORT": "3000"
+  }
+}

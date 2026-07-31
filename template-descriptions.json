@@ -1,0 +1,35 @@
+{
+  "Mem0 PostgreSQL": {
+    "PGDATA": "PostgreSQL data directory inside the Railway volume.",
+    "POSTGRES_DB": "Database used for vectors; the API creates a separate mem0_app database for users and settings.",
+    "POSTGRES_PASSWORD": "Generated password for the private pgvector database.",
+    "POSTGRES_USER": "PostgreSQL role used by Mem0."
+  },
+  "Mem0 API": {
+    "ADMIN_API_KEY": "Generated bootstrap API key for administrative and programmatic access.",
+    "APP_DB_NAME": "Database used for Mem0 users, API keys, settings, and request logs.",
+    "AUTH_DISABLED": "Keep false on Railway so API and dashboard authentication remain enabled.",
+    "DASHBOARD_URL": "Public dashboard origin allowed by the API CORS policy.",
+    "HISTORY_DB_PATH": "SQLite memory-history file stored on the Mem0 history volume.",
+    "JWT_SECRET": "Generated secret that signs dashboard access and refresh tokens.",
+    "MEM0_DEFAULT_EMBEDDER_MODEL": "Default OpenAI embedding model for new memories and searches.",
+    "MEM0_DEFAULT_LLM_MODEL": "Default OpenAI model for memory extraction.",
+    "MEM0_TELEMETRY": "Disables upstream anonymous onboarding telemetry by default.",
+    "OPENAI_API_KEY": "Required provider key for memory extraction and embeddings.",
+    "OPENAI_BASE_URL": "Optional OpenAI-compatible API base URL; leave blank for OpenAI.",
+    "PORT": "HTTP port used by Railway routing and health checks.",
+    "POSTGRES_COLLECTION_NAME": "pgvector collection used for memory embeddings.",
+    "POSTGRES_DB": "Reference to the vector database name.",
+    "POSTGRES_HOST": "Private Railway hostname of the pgvector service.",
+    "POSTGRES_PASSWORD": "Password reference for the private pgvector service.",
+    "POSTGRES_PORT": "Private PostgreSQL port.",
+    "POSTGRES_USER": "Username reference for the private pgvector service.",
+    "REQUEST_LOG_RETENTION_DAYS": "Retention target used by Mem0's request-log pruning command."
+  },
+  "Mem0 Dashboard": {
+    "API_INTERNAL_URL": "Private API URL used by dashboard server-side requests.",
+    "NEXT_PUBLIC_API_URL": "Public API URL used by the browser.",
+    "NEXT_PUBLIC_INSTANCE_NAME": "Display name shown in the dashboard.",
+    "PORT": "Dashboard HTTP port used by Railway routing and health checks."
+  }
+}

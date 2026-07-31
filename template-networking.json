@@ -1,0 +1,8 @@
+{
+  "Mem0 API": {
+    "publicPort": 8000
+  },
+  "Mem0 Dashboard": {
+    "publicPort": 3000
+  }
+}

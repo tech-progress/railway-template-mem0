@@ -1,0 +1,4 @@
+.env
+.git
+FINDINGS.md
+node_modules

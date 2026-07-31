@@ -1,0 +1,39 @@
+FROM alpine:3.22@sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce AS upstream
+
+ARG MEM0_COMMIT=5a2201d76ba2adba7129e53bfeb81634fc8a6ed4
+ARG MEM0_ARCHIVE_SHA256=b781700cfa3bd4a4f7cb611d6b9c3d8625b64ee8747274ba5e0b546e88af6c60
+
+RUN apk add --no-cache ca-certificates curl tar \
+    && curl --fail --location --silent --show-error \
+      "https://codeload.github.com/mem0ai/mem0/tar.gz/${MEM0_COMMIT}" \
+      --output /tmp/mem0.tar.gz \
+    && echo "${MEM0_ARCHIVE_SHA256}  /tmp/mem0.tar.gz" | sha256sum -c - \
+    && mkdir /src \
+    && tar --extract --gzip --file /tmp/mem0.tar.gz \
+      --directory /src --strip-components=1
+
+FROM python:3.12-slim@sha256:57cd7c3a7a273101a6485ba99423ee568157882804b1124b4dd04266317710de
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PORT=8000
+
+WORKDIR /app
+
+COPY --from=upstream /src/server/requirements.txt ./requirements.txt
+COPY constraints.txt ./constraints.txt
+COPY requirements-runtime.txt ./requirements-runtime.txt
+RUN pip install --no-cache-dir \
+      --constraint constraints.txt \
+      --requirement requirements.txt \
+      --requirement requirements-runtime.txt
+
+COPY --from=upstream /src/server/ ./
+COPY scripts/ensure-app-db.py scripts/mock-openai.py scripts/start-api.sh ./scripts/
+RUN chmod 0555 ./scripts/ensure-app-db.py ./scripts/mock-openai.py ./scripts/start-api.sh \
+    && mkdir -p /app/history
+
+EXPOSE 8000
+
+CMD ["./scripts/start-api.sh"]

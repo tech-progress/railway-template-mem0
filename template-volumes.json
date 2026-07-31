@@ -1,0 +1,10 @@
+{
+  "Mem0 API": {
+    "mountPath": "/app/history",
+    "sizeMB": 1000
+  },
+  "Mem0 PostgreSQL": {
+    "mountPath": "/var/lib/postgresql/data",
+    "sizeMB": 5000
+  }
+}
