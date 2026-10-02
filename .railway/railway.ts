@@ -20,7 +20,7 @@ export default defineRailway(() => {
   const postgres = service("Mem0 PostgreSQL", {
     source: {
       image:
-        "pgvector/pgvector:pg17@sha256:7ae6051efd0e60444282c27c7e141af07f322ce033300e727a49c3dd11075e38",
+        "pgvector/pgvector:pg17@sha256:ac08538c6f8b9904c33c8224c5e5706dbe760aca29db1d096972b4052c22a75d",
     },
     volumeMounts: { "/var/lib/postgresql/data": postgresData },
     env: {

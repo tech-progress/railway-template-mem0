@@ -60,18 +60,27 @@ jq -e '
 ' <<<"${graph_json}" >/dev/null
 
 pins=(
-  "5a2201d76ba2adba7129e53bfeb81634fc8a6ed4"
-  "b781700cfa3bd4a4f7cb611d6b9c3d8625b64ee8747274ba5e0b546e88af6c60"
-  "sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce"
-  "sha256:57cd7c3a7a273101a6485ba99423ee568157882804b1124b4dd04266317710de"
-  "sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293"
-  "sha256:7ae6051efd0e60444282c27c7e141af07f322ce033300e727a49c3dd11075e38"
+  "94c3fe9f238f3dbf29c9ce98643bd71eb13077cd"
+  "0529671008cfa497329439a334d51fd12d24bd664bcdc53f9195c4a10ab63ad7"
+  "sha256:85fe1e81d6758c208f3e1eed4338a1997e19d4be002d4dd32d3100c9a8c010a0"
+  "sha256:54c85f3c47607a77f32adec749d3c81d1348bf25833671f512b26a9b6d778cb3"
+  "sha256:baf676f7d0e552f3231945c2f979055ca121bce128c152f7a34e6bd1728b1c5a"
+  "sha256:ac08538c6f8b9904c33c8224c5e5706dbe760aca29db1d096972b4052c22a75d"
 )
 for pin in "${pins[@]}"; do
   grep -Rqs "${pin}" \
     "${template_root}/Dockerfile.api" "${template_root}/Dockerfile.dashboard" \
     "${template_root}/compose.yaml" "${template_root}/.railway/railway.ts"
 done
+
+grep -Fq 'mem0ai==2.2.1' "${template_root}/constraints.txt"
+for dockerfile in Dockerfile.api Dockerfile.dashboard; do
+  grep -Fq 'ARG MEM0_COMMIT=94c3fe9f238f3dbf29c9ce98643bd71eb13077cd' "${template_root}/${dockerfile}"
+  grep -Fq 'ARG MEM0_ARCHIVE_SHA256=0529671008cfa497329439a334d51fd12d24bd664bcdc53f9195c4a10ab63ad7' "${template_root}/${dockerfile}"
+done
+grep -Fq 'FROM node:22.23.3-alpine3.23@sha256:' "${template_root}/Dockerfile.dashboard"
+grep -Fq '/src/server/dashboard/pnpm-workspace.yaml ./' "${template_root}/Dockerfile.dashboard"
+[[ "$(grep -Fc 'corepack prepare pnpm@10.34.2 --activate' "${template_root}/Dockerfile.dashboard")" == 2 ]]
 
 jq -e '
   ."Mem0 API".ADMIN_API_KEY == "${{secret(32)}}" and

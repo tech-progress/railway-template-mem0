@@ -1,4 +1,4 @@
 # Keep the server and the installed library on the same upstream release.
-mem0ai==2.0.3
+mem0ai==2.2.1
 psycopg==3.3.4
 psycopg-binary==3.3.4

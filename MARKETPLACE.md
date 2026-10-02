@@ -1,6 +1,6 @@
 # Deploy and Host Mem0 Self-Hosted on Railway
 
-Deploy Mem0 `2.0.3` as an authenticated memory API and team dashboard with private pgvector storage and persistent memory history. The template builds from a checksum-verified upstream commit, runs database migrations automatically, and generates the database, JWT, and administrator secrets.
+Deploy Mem0 `2.2.1` as an authenticated memory API and team dashboard with private pgvector storage and persistent memory history. The template builds from a checksum-verified upstream commit, runs database migrations automatically, and generates the database, JWT, and administrator secrets.
 
 ## About Hosting Mem0 Self-Hosted
 
@@ -23,7 +23,7 @@ Mem0 requires an OpenAI key for the default LLM and embedding path. The API also
 
 ### Deployment Dependencies
 
-- Mem0 API `2.0.3`, built from pinned upstream source
+- Mem0 API `2.2.1`, built from pinned upstream source
 - Mem0 Dashboard from the same pinned upstream commit
 - pgvector on PostgreSQL 17 with a persistent volume
 - A persistent volume for Mem0's SQLite history database

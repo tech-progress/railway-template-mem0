@@ -1,10 +1,10 @@
 # Mem0 self-hosted Railway template
 
-This template deploys [Mem0](https://github.com/mem0ai/mem0) `2.0.3` as an authenticated REST API and dashboard backed by a private pgvector/PostgreSQL service. The current template release is `v1.0.0`.
+This template deploys [Mem0](https://github.com/mem0ai/mem0) `2.2.1` as an authenticated REST API and dashboard backed by a private pgvector/PostgreSQL service. The current template release is `v1.0.1`.
 
 Upstream project: [Mem0](https://mem0.ai).
 
-The API and dashboard are built from upstream commit `5a2201d76ba2adba7129e53bfeb81634fc8a6ed4`; both Dockerfiles verify the source archive checksum before building. PostgreSQL stores vectors, users, API keys, configuration, and request logs, while a separate volume preserves Mem0's SQLite memory-history database.
+The API and dashboard are built from upstream commit `94c3fe9f238f3dbf29c9ce98643bd71eb13077cd`; both Dockerfiles verify the source archive checksum before building. The dashboard uses Node 22.23.3 and upstream pnpm 10.34.2. PostgreSQL stores vectors, users, API keys, configuration, and request logs, while a separate volume preserves Mem0's SQLite memory-history database.
 
 Railway builds both services from the public `tech-progress/railway-template-mem0` distribution repository on the `release-v1` compatibility branch. Fork maintainers must change the repository in `.railway/railway.ts`, create their own release branch, and authorize Railway's GitHub App for that source.
 
